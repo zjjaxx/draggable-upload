@@ -1,10 +1,9 @@
 {
-    "name": "draggable-upload",
+    "name": "draggable-upload-test",
     "version": "0.1.0",
     "main": "dist/draggableUpload.umd.min.js",
-    "private": true,
     "scripts": {
-        "serve": "vue-cli-service serve",
+        "serve": "vue-cli-service serve ./src/example/main.js",
         "build": "vue-cli-service build --name draggableUpload --entry ./src/index.js --target lib",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint"
