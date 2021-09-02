@@ -13,14 +13,23 @@
           </template>
           <img class="img" v-else :src="item.url" alt="" />
           <div class="option-wrapper">
-            <i
-              class="iconfont icon-yulan icon preview-icon"
-              @click="$emit('imgPreview', item)"
-            ></i>
-            <i
-              class="icon-shanchu iconfont icon"
-              @click="handleRemove(index, item)"
-            ></i>
+            <slot name="previewIcon" :item="item">
+              <i
+                class="iconfont icon-yulan icon preview-icon"
+                @click="$emit('imgPreview', item)"
+              ></i>
+            </slot>
+            <slot
+              name="deleteIcon"
+              :item="item"
+              :fileList="fileList"
+              :index="index"
+            >
+              <i
+                class="icon-shanchu iconfont icon"
+                @click="handleRemove(index, item)"
+              ></i>
+            </slot>
           </div>
         </div>
       </template>

@@ -11,7 +11,7 @@
     "dependencies": {
         "core-js": "^3.6.5",
         "vue": "^3.0.0",
-        "vuedraggable": "^2.24.3"
+        "vuedraggable": "^4.1.0"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
