@@ -1,15 +1,34 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Welcome to Your Vue.js App" />
+  <draggableUpload
+    :fileList="fileList"
+    @fileChange="handleFileChange"
+    @removeImg="handleRemoveImg"
+    @imgPreview="handleImgPreview"
+  ></draggableUpload>
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld.vue";
-
+import HelloWorld from "./components/HelloWorld.vue";
+import draggableUpload from "../draggable-upload.vue";
 export default {
   name: "App",
   components: {
     HelloWorld,
+    draggableUpload,
+  },
+  data() {
+    return {
+      fileList: [],
+    };
+  },
+  methods: {
+    handleFileChange(file, fileList) {
+      console.log("file fileList is", file, fileList);
+    },
+    handleRemoveImg(index, item, fileList) {},
+    handleImgPreview(item) {},
   },
 };
 </script>
