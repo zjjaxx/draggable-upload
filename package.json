@@ -1,6 +1,6 @@
 {
-    "name": "draggable-upload-test",
-    "version": "0.1.1",
+    "name": "draggable_upload",
+    "version": "0.1.0",
     "main": "dist/draggableUpload.umd.min.js",
     "scripts": {
         "serve": "vue-cli-service serve ./src/example/main.js",
@@ -40,5 +40,9 @@
             "vue-cli-service lint",
             "git add"
         ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zjjaxx/draggable-upload"
     }
 }
