@@ -12,6 +12,14 @@
             <slot name="progress" :item="item"></slot>
           </template>
           <img class="img" v-else :src="item.url" alt="" />
+          <slot name="successIcon" :item="item" v-if="item.status == 'success'">
+            <div class="success-icon-wrapper">
+              <i class="iconfont icon-success success-icon"></i>
+            </div>
+          </slot>
+          <slot name="errorIcon" :item="item" v-if="item.status == 'error'">
+            <i class="iconfont icon-error error-icon"></i>
+          </slot>
           <div class="option-wrapper">
             <slot name="previewIcon" :item="item">
               <i
@@ -118,6 +126,7 @@ export default {
     background-color: #fff;
     border: 1px solid #c0ccda;
     border-radius: 6px;
+    overflow: hidden;
     &:hover {
       .option-wrapper {
         opacity: 1;
@@ -127,6 +136,9 @@ export default {
       height: 100%;
       width: 100%;
       border-radius: 6px;
+    }
+    img[src=""] {
+      display: none;
     }
     .option-wrapper {
       display: flex;
@@ -145,6 +157,7 @@ export default {
       background-color: rgba(0, 0, 0, 0.5);
       transition: opacity 0.3s;
       cursor: pointer;
+      z-index: 10;
       .icon {
         font-size: 21px;
         color: #fff;
@@ -153,6 +166,33 @@ export default {
       .preview-icon {
         margin-right: 15px;
       }
+    }
+    .success-icon-wrapper {
+      position: absolute;
+      right: -15px;
+      top: -6px;
+      width: 40px;
+      height: 24px;
+      background: #13ce66;
+      text-align: center;
+      transform: rotate(45deg);
+      box-shadow: 0 0 1pc 1px rgb(0 0 0 / 20%);
+      z-index: 1;
+      .success-icon {
+        display: inline-block;
+        color: #fff;
+        font-size: 12px;
+        margin-top: 11px;
+        transform: rotate(-45deg);
+      }
+    }
+    .error-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 52px;
+      color: #999;
     }
   }
 }

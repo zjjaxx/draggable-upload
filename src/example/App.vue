@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
     <draggableUpload
+      :limit="4"
+      multiple="multiple"
+      accept=".jpg,.jpeg,.png"
       :fileList="fileList"
       @fileChange="handleFileChange"
       @removeImg="handleRemoveImg"
@@ -50,8 +53,13 @@ export default {
         status: "loading",
       });
       setTimeout(() => {
-        fileList[index].url = mockUrl;
-        fileList[index].status = "success";
+        if (index % 2 == 0) {
+          fileList[index].url = "";
+          fileList[index].status = "error";
+        } else {
+          fileList[index].url = mockUrl + Math.random();
+          fileList[index].status = "success";
+        }
       }, 1000);
     },
     handleRemoveImg(index, item, fileList) {
@@ -80,6 +88,12 @@ export default {
 .text {
   font-size: 16px;
   color: #fff;
+}
+.status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .mr-20 {
   margin-right: 20px;
