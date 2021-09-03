@@ -9,7 +9,9 @@
       <template #item="{ element: item, index }">
         <div class="img-wrapper">
           <template v-if="item.status == 'loading'">
-            <slot name="progress" :item="item"></slot>
+            <slot name="progress" :item="item">
+              <span class="loading-text">loading</span>
+            </slot>
           </template>
           <img class="img" v-else :src="item.url" alt="" />
           <slot name="successIcon" :item="item" v-if="item.status == 'success'">
@@ -139,6 +141,14 @@ export default {
     }
     img[src=""] {
       display: none;
+    }
+    .loading-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 16px;
+      color: #999;
+      transform: translate(-50%, -50%);
     }
     .option-wrapper {
       display: flex;
