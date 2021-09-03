@@ -38,6 +38,7 @@ npm i draggable_upload
 ### 加载状态插槽 progress
 ### 成功状态插槽 successIcon
 ### 失败状态插槽 errorIcon
+## [example demo](https://github.com/zjjaxx/draggable-upload/blob/master/src/example/App.vue)
 ## 使用
 ```
  <draggableUpload
@@ -64,20 +65,14 @@ npm i draggable_upload
     </draggableUpload>
 ```
 ```
-export default {
-  //...
-  data() {
-    return {
-      fileList: [
-        {
-          status: "success",
-          url: mockUrl,
-        },
-      ],
-    };
-  },
-  methods: {
-    handleFileChange(file, fileList) {
+  setup() {
+    const fileList = reactive([
+      {
+        status: "success",
+        url: mockUrl,
+      },
+    ]);
+    const handleFileChange = (file, fileList) => {
       console.log("file fileList is", file, fileList);
       let index = fileList.length;
       fileList.push({
@@ -89,17 +84,22 @@ export default {
           fileList[index].url = "";
           fileList[index].status = "error";
         } else {
-          fileList[index].url = mockUrl+Math.random();
+          fileList[index].url = mockUrl + Math.random();
           fileList[index].status = "success";
         }
       }, 1000);
-    },
-    handleRemoveImg(index, item, fileList) {
+    };
+    const handleRemoveImg = (index, item, fileList) => {
       fileList.splice(index, 1);
-    },
-    handleImgPreview(item) {
+    };
+    const handleImgPreview = (item) => {
       console.log("preview", item.url);
-    },
+    };
+    return {
+      fileList,
+      handleFileChange,
+      handleRemoveImg,
+      handleImgPreview,
+    };
   },
-};
 ```

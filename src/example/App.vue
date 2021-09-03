@@ -27,6 +27,7 @@
 
 <script>
 import draggableUpload from "../draggable-upload.vue";
+import { reactive } from "vue";
 const mockUrl =
   "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcar0.autoimg.cn%2Fupload%2F2013%2F2%2F18%2Fu_20130218165304639264.jpg&refer=http%3A%2F%2Fcar0.autoimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633182777&t=c1a8a9db9b2e22afc51046858b781fce";
 export default {
@@ -34,18 +35,14 @@ export default {
   components: {
     draggableUpload,
   },
-  data() {
-    return {
-      fileList: [
-        {
-          status: "success",
-          url: mockUrl,
-        },
-      ],
-    };
-  },
-  methods: {
-    handleFileChange(file, fileList) {
+  setup() {
+    const fileList = reactive([
+      {
+        status: "success",
+        url: mockUrl,
+      },
+    ]);
+    const handleFileChange = (file, fileList) => {
       console.log("file fileList is", file, fileList);
       let index = fileList.length;
       fileList.push({
@@ -61,13 +58,19 @@ export default {
           fileList[index].status = "success";
         }
       }, 1000);
-    },
-    handleRemoveImg(index, item, fileList) {
+    };
+    const handleRemoveImg = (index, item, fileList) => {
       fileList.splice(index, 1);
-    },
-    handleImgPreview(item) {
+    };
+    const handleImgPreview = (item) => {
       console.log("preview", item.url);
-    },
+    };
+    return {
+      fileList,
+      handleFileChange,
+      handleRemoveImg,
+      handleImgPreview,
+    };
   },
 };
 </script>
