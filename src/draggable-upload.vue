@@ -45,15 +45,33 @@
       </template>
     </draggable>
 
-    <div class="upload-wrapper" v-if="fileList.length < limit">
+    <div
+      class="upload-wrapper"
+      :class="{ 'upload-wrapper-drag-active': isDragEnter }"
+      v-if="fileList.length < limit"
+    >
       <input class="input" type="file" v-bind="$attrs" @change="handleChange" />
-      <slot></slot>
+      <slot v-if="!draggable"></slot>
+      <div
+        class="draggalbe-container"
+        :class="{ 'drag-enter-active': isDragEnter }"
+        v-else
+        @dragenter.stop.prevent
+        @drog.prevent="handleDrog"
+        @dragover.prevent.stop="handleDragover"
+        @dragleave.prevent="handleDragleave"
+      >
+        <i class="iconfont icon-Cloudupload upload-icon"></i>
+        <span class="drap-tip"
+          >将文件拖到此处,或<span class="color-blue">点击上传</span></span
+        >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { toRefs } from "vue";
+import { ref, toRefs } from "vue";
 import "./font/iconfont.css";
 import draggable from "vuedraggable";
 export default {
@@ -62,6 +80,10 @@ export default {
     draggable,
   },
   props: {
+    draggable: {
+      type: Boolean,
+      default: false,
+    },
     fileList: {
       type: Array,
       required: true,
@@ -72,6 +94,21 @@ export default {
     },
   },
   setup(props, { emit }) {
+    const isDragEnter = ref(false);
+    const handleDragover = (event) => {
+      console.log("trgger dragover");
+      isDragEnter.value = true;
+    };
+    const handleDrog = (event) => {
+      const dataTransfer = event.dataTransfer;
+      console.log("dataTransfer", dataTransfer);
+      isDragEnter.value = false;
+      return false;
+    };
+    const handleDragleave = (event) => {
+      console.log("trgger dragleave");
+      isDragEnter.value = false;
+    };
     const { fileList, limit } = toRefs(props);
     const handleChange = ({ target: { files } }) => {
       const fileListLength = fileList.value.length;
@@ -88,6 +125,10 @@ export default {
       handleChange,
       fileList,
       handleRemove,
+      handleDragover,
+      handleDragleave,
+      handleDrog,
+      isDragEnter,
     };
   },
 };
@@ -108,6 +149,35 @@ export default {
     width: 148px;
     height: 148px;
     cursor: pointer;
+    .draggalbe-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 100;
+      .upload-icon {
+        font-size: 47px;
+        color: #999;
+      }
+      .drap-tip {
+        margin-top: 10px;
+        font-size: 14px;
+        width: 90px;
+        color: #999;
+      }
+      .color-blue {
+        color: blueviolet;
+      }
+    }
+    .drag-enter-active {
+      background: blueviolet;
+      opacity: 0.1;
+    }
     .input {
       position: absolute;
       left: 0;
@@ -116,7 +186,11 @@ export default {
       width: 100%;
       opacity: 0;
       cursor: pointer;
+      z-index: 10;
     }
+  }
+  .upload-wrapper-drag-active {
+    border: 2px dashed blueviolet;
   }
   .img-wrapper {
     position: relative;

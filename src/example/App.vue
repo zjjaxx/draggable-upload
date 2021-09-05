@@ -2,6 +2,7 @@
   <div class="wrapper">
     <draggableUpload
       :limit="4"
+      draggable
       multiple="multiple"
       accept=".jpg,.jpeg,.png"
       :fileList="fileList"
