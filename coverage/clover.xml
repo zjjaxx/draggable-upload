@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1630649328976" clover="3.2.0">
-  <project timestamp="1630649328976" name="All files">
-    <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4" elements="20" coveredelements="20" complexity="0" loc="14" ncloc="14" packages="2" files="2" classes="2"/>
+<coverage generated="1630893630281" clover="3.2.0">
+  <project timestamp="1630893630281" name="All files">
+    <metrics statements="26" coveredstatements="26" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8" elements="36" coveredelements="36" complexity="0" loc="26" ncloc="26" packages="2" files="2" classes="2"/>
     <package name="src">
-      <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
+      <metrics statements="25" coveredstatements="25" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
       <file name="draggable-upload.vue" path="D:\zjjworkspace\library\draggable-upload\src\draggable-upload.vue">
-        <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="4"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="75" count="5" type="stmt"/>
-        <line num="76" count="5" type="stmt"/>
-        <line num="77" count="1" type="stmt"/>
-        <line num="78" count="1" type="stmt"/>
-        <line num="79" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="80" count="3" type="stmt"/>
-        <line num="84" count="5" type="stmt"/>
+        <metrics statements="25" coveredstatements="25" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
-        <line num="87" count="5" type="stmt"/>
+        <line num="105" count="6" type="stmt"/>
+        <line num="106" count="6" type="stmt"/>
+        <line num="107" count="6" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="110" count="6" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="113" count="1" type="stmt"/>
+        <line num="115" count="6" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="118" count="6" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="121" count="6" type="stmt"/>
+        <line num="122" count="6" type="stmt"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="124" count="2" type="stmt"/>
+        <line num="125" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="126" count="6" type="stmt"/>
+        <line num="130" count="6" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="133" count="6" type="stmt"/>
       </file>
     </package>
     <package name="src.font">

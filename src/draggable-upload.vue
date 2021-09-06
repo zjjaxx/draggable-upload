@@ -50,15 +50,23 @@
       :class="{ 'upload-wrapper-drag-active': isDragEnter }"
       v-if="fileList.length < limit"
     >
-      <input class="input" type="file" v-bind="$attrs" @change="handleChange" />
+      <input
+        ref="inputRef"
+        class="input"
+        type="file"
+        v-bind="$attrs"
+        @change="handleChange"
+      />
       <slot v-if="!draggable"></slot>
+      <!-- dragover.prevent阻止默认事件否则不会触发drop -->
       <div
         class="draggalbe-container"
         :class="{ 'drag-enter-active': isDragEnter }"
         v-else
-        @dragenter.stop.prevent
-        @drog.prevent="handleDrog"
-        @dragover.prevent.stop="handleDragover"
+        @click="handleClick"
+        @dragenter.prevent
+        @drop.prevent="handleDrop"
+        @dragover.prevent="handleDragover"
         @dragleave.prevent="handleDragleave"
       >
         <i class="iconfont icon-Cloudupload upload-icon"></i>
@@ -95,19 +103,20 @@ export default {
   },
   setup(props, { emit }) {
     const isDragEnter = ref(false);
-    const handleDragover = (event) => {
-      console.log("trgger dragover");
+    const inputRef = ref(null);
+    const handleDragover = () => {
       isDragEnter.value = true;
     };
-    const handleDrog = (event) => {
-      const dataTransfer = event.dataTransfer;
-      console.log("dataTransfer", dataTransfer);
+    const handleDrop = (event) => {
+      const files = event.dataTransfer.files;
       isDragEnter.value = false;
-      return false;
+      handleChange({ target: { files } });
     };
-    const handleDragleave = (event) => {
-      console.log("trgger dragleave");
+    const handleDragleave = () => {
       isDragEnter.value = false;
+    };
+    const handleClick = () => {
+      inputRef.value.click();
     };
     const { fileList, limit } = toRefs(props);
     const handleChange = ({ target: { files } }) => {
@@ -127,8 +136,10 @@ export default {
       handleRemove,
       handleDragover,
       handleDragleave,
-      handleDrog,
+      handleDrop,
       isDragEnter,
+      inputRef,
+      handleClick,
     };
   },
 };

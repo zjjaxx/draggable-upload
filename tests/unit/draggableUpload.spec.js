@@ -48,4 +48,25 @@ describe("draggableUpload.vue", () => {
     wrapper.find(".icon-shanchu").trigger("click");
     expect(wrapper.emitted()).toHaveProperty("removeImg");
   });
+  it("draggable test", () => {
+    const wrapper = mount(draggableUpload, {
+      props: { fileList, draggable: true, limit: 4 },
+    });
+    expect(wrapper.find(".draggalbe-container").exists()).toBe(true);
+    const mockData = ["file1", "file2", "file3", "file4", "file5", "file6"];
+    wrapper.vm.handleDrop({ dataTransfer: { files: mockData } });
+    expect(wrapper.emitted().fileChange).toHaveLength(3);
+
+    wrapper.vm.handleDragover();
+    expect(wrapper.vm.isDragEnter).toEqual(true);
+
+    wrapper.vm.handleDragleave();
+    expect(wrapper.vm.isDragEnter).toEqual(false);
+
+    const inputElement = wrapper.find(".input").wrapperElement;
+    const fn = jest.fn(() => {});
+    inputElement.onclick = fn;
+    wrapper.vm.handleClick();
+    expect(fn.mock.calls.length).toBe(1);
+  });
 });
