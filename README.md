@@ -38,11 +38,13 @@ npm i draggable_upload
 ### 加载状态插槽 progress
 ### 成功状态插槽 successIcon
 ### 失败状态插槽 errorIcon
+### 拖拽样式插槽 dragIcon
 ## [example demo](https://github.com/zjjaxx/draggable-upload/blob/master/src/example/App.vue)
 ## 使用
 ```
  <draggableUpload
       :limit="4"
+      draggable
       multiple="multiple"
       accept=".jpg,.jpeg,.png"
       :fileList="fileList"
