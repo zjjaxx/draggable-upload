@@ -117,6 +117,12 @@ export default {
       isDragEnter.value = true;
     };
     const handleDrop = (event) => {
+      const _promise = new Promise((resolve, reject) => {
+        resolve(10);
+      });
+      _promise.then((res) => {
+        console.log("res is", res);
+      });
       let files = Array.from(event.dataTransfer.files);
       const accept = attrs.accept;
       console.log("accept", accept);
