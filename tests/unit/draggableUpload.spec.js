@@ -69,4 +69,88 @@ describe("draggableUpload.vue", () => {
     wrapper.vm.handleClick();
     expect(fn.mock.calls.length).toBe(1);
   });
+
+  it("accept test 0", () => {
+    const _attrs = {
+      accept: "image/png,image/jpg",
+    };
+    const wrapper = mount(draggableUpload, {
+      attrs: _attrs,
+      props: { fileList, draggable: true },
+    });
+    const mockData = {
+      dataTransfer: {
+        files: [
+          { name: "file1.png", type: "image/png" },
+          { name: "file2.jpg", type: "image/jpeg" },
+          { name: "file3.pdf", type: "application/pdf" },
+        ],
+      },
+    };
+    wrapper.vm.handleDrop(mockData);
+    expect(wrapper.emitted().fileChange).toHaveLength(2);
+  });
+  it("accept test 1", () => {
+    const _attrs = {
+      accept: "image/*",
+    };
+    const wrapper = mount(draggableUpload, {
+      attrs: _attrs,
+      props: { fileList, draggable: true },
+    });
+    const mockData = {
+      dataTransfer: {
+        files: [
+          { name: "file1.png", type: "image/png" },
+          { name: "file2.jpg", type: "image/jpeg" },
+          { name: "file3.pdf", type: "application/pdf" },
+        ],
+      },
+    };
+
+    wrapper.vm.handleDrop(mockData);
+    expect(wrapper.emitted().fileChange).toHaveLength(2);
+  });
+  it("accept test 2", () => {
+    const _attrs = {
+      accept: ".png,.jpg",
+    };
+    const wrapper = mount(draggableUpload, {
+      attrs: _attrs,
+      props: { fileList, draggable: true },
+    });
+    const mockData = {
+      dataTransfer: {
+        files: [
+          { name: "file1.png", type: "image/png" },
+          { name: "file2.jpg", type: "image/jpeg" },
+          { name: "file3.pdf", type: "application/pdf" },
+        ],
+      },
+    };
+
+    wrapper.vm.handleDrop(mockData);
+    expect(wrapper.emitted().fileChange).toHaveLength(2);
+  });
+  it("accept test 3", () => {
+    const _attrs = {
+      accept: "error",
+    };
+    const wrapper = mount(draggableUpload, {
+      attrs: _attrs,
+      props: { fileList, draggable: true },
+    });
+    const mockData = {
+      dataTransfer: {
+        files: [
+          { name: "file1.png", type: "image/png" },
+          { name: "file2.jpg", type: "image/jpeg" },
+          { name: "file3.pdf", type: "application/pdf" },
+        ],
+      },
+    };
+
+    wrapper.vm.handleDrop(mockData);
+    expect(wrapper.emitted().fileChange).toBe(undefined);
+  });
 });

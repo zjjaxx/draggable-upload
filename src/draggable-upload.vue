@@ -69,10 +69,12 @@
         @dragover.prevent="handleDragover"
         @dragleave.prevent="handleDragleave"
       >
-        <i class="iconfont icon-Cloudupload upload-icon"></i>
-        <span class="drap-tip"
-          >将文件拖到此处,或<span class="color-blue">点击上传</span></span
-        >
+        <slot name="dragIcon">
+          <i class="iconfont icon-Cloudupload upload-icon"></i>
+          <span class="drap-tip"
+            >将文件拖到此处,或<span class="color-blue">点击上传</span></span
+          >
+        </slot>
       </div>
     </div>
   </div>
@@ -101,14 +103,49 @@ export default {
       default: 1000,
     },
   },
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const isDragEnter = ref(false);
     const inputRef = ref(null);
     const handleDragover = () => {
       isDragEnter.value = true;
     };
     const handleDrop = (event) => {
-      const files = event.dataTransfer.files;
+      let files = Array.from(event.dataTransfer.files);
+      const accept = attrs.accept;
+      console.log("accept", accept);
+      if (accept) {
+        files = files.filter((file) => {
+          let { type, name } = file;
+          const extension =
+            name.indexOf(".") > -1 ? `.${name.split(".").pop()}` : "";
+          const baseType = type.replace(/\/.*$/, "");
+          const flag = accept
+            .split(",")
+            .map((type) => type.trim())
+            .filter((type) => type)
+            .some((acceptedType) => {
+              if (acceptedType.startsWith(".")) {
+                return extension === acceptedType;
+              }
+              //  /*的判断
+              if (/\/\*$/.test(acceptedType)) {
+                return baseType === acceptedType.replace(/\/\*$/, "");
+              }
+              if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
+                //jpg jpeg是同一种类型 做下兼容
+                acceptedType = acceptedType.replace("jpg", "jpeg");
+                type = type.replace("jpg", "jpeg");
+                return type === acceptedType;
+              }
+              return false;
+            });
+          if (!flag) {
+            console.warn(`不支持${extension}类型的文件`);
+          }
+          return flag;
+        });
+      }
+
       isDragEnter.value = false;
       handleChange({ target: { files } });
     };

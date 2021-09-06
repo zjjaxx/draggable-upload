@@ -12,6 +12,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "vue/no-dupe-keys": "off",
     "no-unused-vars": "off",
+    "no-useless-escape": "off",
   },
   overrides: [
     {

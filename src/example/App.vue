@@ -4,7 +4,7 @@
       :limit="4"
       draggable
       multiple="multiple"
-      accept=".jpg,.jpeg,.png"
+      accept="image/jpg,.png"
       :fileList="fileList"
       @fileChange="handleFileChange"
       @removeImg="handleRemoveImg"
