@@ -31,14 +31,20 @@ npm i draggable_upload
 移除图片回调
 ### imgPreview
 预览图片回调
+### uploadClass
+上传input 类名
+### imgClass
+图片类名
 ## 插槽
-### 默认插槽 上传元素加号icon插槽 default
-### 预览icon插槽 previewIcon
-### 删除icon插槽 deleteIcon
-### 加载状态插槽 progress
-### 成功状态插槽 successIcon
-### 失败状态插槽 errorIcon
-### 拖拽样式插槽 dragIcon
+|   命名插槽  |  命名   |  插槽prop   |
+| --- | --- | --- |
+|  默认插槽   |   default  |   -  |
+|  预览插槽   |   previewIcon  |  item   |
+|   删除插槽  |  deleteIcon   |   index, item, fileList  |
+|   加载状态插槽  |   progress  |  item   |
+|   成功状态插槽  | successIcon    |  item   |
+|   失败状态插槽  |   errorIcon  |  item   |
+|   拖拽样式插槽  |   dragIcon  |  -   |
 ## [example demo](https://github.com/zjjaxx/draggable-upload/blob/master/src/example/App.vue)
 ## 使用
 ```

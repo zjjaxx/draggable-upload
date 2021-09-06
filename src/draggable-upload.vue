@@ -13,7 +13,7 @@
               <span class="loading-text">loading</span>
             </slot>
           </template>
-          <img class="img" v-else :src="item.url" alt="" />
+          <img class="img" v-else :src="item.url" alt="" :class="imgClass" />
           <slot name="successIcon" :item="item" v-if="item.status == 'success'">
             <div class="success-icon-wrapper">
               <i class="iconfont icon-success success-icon"></i>
@@ -44,10 +44,9 @@
         </div>
       </template>
     </draggable>
-
     <div
       class="upload-wrapper"
-      :class="{ 'upload-wrapper-drag-active': isDragEnter }"
+      :class="[{ 'upload-wrapper-drag-active': isDragEnter }, uploadClass]"
       v-if="fileList.length < limit"
     >
       <input
@@ -90,6 +89,14 @@ export default {
     draggable,
   },
   props: {
+    uploadClass: {
+      type: String,
+      default: "",
+    },
+    imgClass: {
+      type: String,
+      default: "",
+    },
     draggable: {
       type: Boolean,
       default: false,
