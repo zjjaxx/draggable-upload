@@ -10,31 +10,24 @@ yarn add draggable_upload
 npm i draggable_upload
 ```
 ## 属性
-### fileList
-格式为
-```
-[{
-  url:"",
-  status:"",//状态值为 loading | success | error
-  //...其它自定义属性
-}]
-```
-### limit
-图片上传数量限制
+|  属性名  |  类型   |  默认值   | 必填 | 格式| 说明|
+| --- | --- | --- | --- | --- |---|
+|  fileList   |   array  |   -  | 必填 | `[{ url:"",status:"",//状态值为 loading | success | error//...其它自定义属性}] `| 上传数组|
+|  limit   |   number  |  1000   | 否| 4| 图片上传数量限制 |
+|   input原生属性 multiple 、accept 等 |   - | - |  否  | - |除了props其它自定义属性直接作用于input元素上 |
+|   uploadClass  |   string  |  -   | 否 | - | 上传input 类名 |
+|   imgClass  | string    |  -   | 否 | - | 图片类名 |
 
-### 除了props其它自定义属性直接作用于input元素上
-例如 multiple accept
+
 ## 事件
-### fileChange
-选取图片回调
-### removeImg
-移除图片回调
-### imgPreview
-预览图片回调
-### uploadClass
-上传input 类名
-### imgClass
-图片类名
+
+|  事件名  | 参数| 说明|
+| --- | --- | --- | 
+|  fileChange   |   file,fileList  |   选取文件回调  |
+|  removeImg   |   index,item,fileList  | 移除图片回调 |
+|   imgPreview |   item |预览图片回调 |
+
+
 ## 插槽
 |   命名插槽  |  命名   |  插槽prop   |
 | --- | --- | --- |
