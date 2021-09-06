@@ -1,7 +1,8 @@
 # draggable_upload ![example workflow](https://github.com/zjjaxx/draggable-upload/actions/workflows/webpack.yml/badge.svg)
 
 ## 描述
-基于vue3.0的可拖拽排序的图片上传组件
+
+基于vue3.0的可拖拽排序、拖拽上传的上传组件
 
 ## 安装
 ```
@@ -12,7 +13,7 @@ npm i draggable_upload
 ## 属性
 |  属性名  |  类型   |  默认值   | 必填 | 格式| 说明|
 | --- | --- | --- | --- | --- |---|
-|  fileList   |   array  |   -  | 必填 | `[{ url:"",status:"",//状态值为 loading | success | error//...其它自定义属性}] `| 上传数组|
+|  fileList   |   array  |   -  | 必填 | `[{ url:"",status:"success",//...其它自定义属性}] `| 上传数组 ``` 状态值为 loading 、 success 、 error```|
 |  limit   |   number  |  1000   | 否| 4| 图片上传数量限制 |
 |   input原生属性 multiple 、accept 等 |   - | - |  否  | - |除了props其它自定义属性直接作用于input元素上 |
 |   uploadClass  |   string  |  -   | 否 | - | 上传input 类名 |
