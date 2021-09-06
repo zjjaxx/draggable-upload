@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
     <draggableUpload
+      uploadClass="upload-class"
+      imgClass="img-class"
       :limit="4"
       draggable
       multiple="multiple"
@@ -101,5 +103,17 @@ export default {
 }
 .mr-20 {
   margin-right: 20px;
+}
+.img-class {
+  width: 80px;
+  height: 80px;
+}
+.wrapper {
+  .draggable-upload-wrapper {
+    .upload-class {
+      width: 120px;
+      height: 120px;
+    }
+  }
 }
 </style>

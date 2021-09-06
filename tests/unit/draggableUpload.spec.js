@@ -69,7 +69,18 @@ describe("draggableUpload.vue", () => {
     wrapper.vm.handleClick();
     expect(fn.mock.calls.length).toBe(1);
   });
-
+  it("imgClass test", () => {
+    const wrapper = mount(draggableUpload, {
+      props: { fileList, imgClass: "img-class" },
+    });
+    expect(wrapper.find(".img-class").exists()).toBe(true);
+  });
+  it("uploadClass test", () => {
+    const wrapper = mount(draggableUpload, {
+      props: { fileList, imgClass: "upload-class" },
+    });
+    expect(wrapper.find(".upload-class").exists()).toBe(true);
+  });
   it("accept test 0", () => {
     const _attrs = {
       accept: "image/png,image/jpg",
