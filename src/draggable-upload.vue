@@ -79,11 +79,12 @@
   </div>
 </template>
 
-<script>
-import { ref, toRefs } from "vue";
+<script lang="ts">
+import { ref, toRefs, defineComponent, PropType } from "vue";
 import "./font/iconfont.css";
 import draggable from "vuedraggable";
-export default {
+import { FileItem, File, Nullable } from "./draggable-upload-type";
+export default defineComponent({
   inheritAttrs: false,
   components: {
     draggable,
@@ -102,7 +103,7 @@ export default {
       default: false,
     },
     fileList: {
-      type: Array,
+      type: Array as PropType<FileItem[]>,
       required: true,
     },
     limit: {
@@ -116,9 +117,9 @@ export default {
     const handleDragover = () => {
       isDragEnter.value = true;
     };
-    const handleDrop = (event) => {
-      let files = Array.from(event.dataTransfer.files);
-      const accept = attrs.accept;
+    const handleDrop = (event: { dataTransfer: { files: File[] } }) => {
+      let files: File[] = Array.from(event.dataTransfer.files);
+      const accept = attrs.accept as Nullable<string>;
       if (accept) {
         files = files.filter((file) => {
           let { type, name } = file;
@@ -159,18 +160,22 @@ export default {
       isDragEnter.value = false;
     };
     const handleClick = () => {
-      inputRef.value.click();
+      (inputRef.value as unknown as HTMLElement).click();
     };
     const { fileList, limit } = toRefs(props);
-    const handleChange = ({ target: { files } }) => {
+    const handleChange = ({
+      target: { files },
+    }: {
+      target: { files: File[] };
+    }) => {
       const fileListLength = fileList.value.length;
-      files.forEach((file, index) => {
+      files.forEach((file: File, index: number) => {
         if (index < limit.value - fileListLength) {
           emit("fileChange", file, fileList.value);
         }
       });
     };
-    const handleRemove = (index, item) => {
+    const handleRemove = (index: number, item: FileItem) => {
       emit("removeImg", index, item, fileList.value);
     };
     return {
@@ -185,7 +190,7 @@ export default {
       handleClick,
     };
   },
-};
+});
 </script>
 
 <style lang="less" scoped>

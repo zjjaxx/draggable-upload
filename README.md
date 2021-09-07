@@ -67,6 +67,8 @@ npm i draggable_upload
     </draggableUpload>
 ```
 ```
+import draggableUpload, { FileItem, File } from "../index";
+//....
   setup() {
     const fileList = reactive([
       {
@@ -74,7 +76,7 @@ npm i draggable_upload
         url: mockUrl,
       },
     ]);
-    const handleFileChange = (file, fileList) => {
+    const handleFileChange = (file: File, fileList: FileItem[]) => {
       console.log("file fileList is", file, fileList);
       let index = fileList.length;
       fileList.push({
@@ -91,10 +93,14 @@ npm i draggable_upload
         }
       }, 1000);
     };
-    const handleRemoveImg = (index, item, fileList) => {
+    const handleRemoveImg = (
+      index: number,
+      item: FileItem,
+      fileList: FileItem[]
+    ) => {
       fileList.splice(index, 1);
     };
-    const handleImgPreview = (item) => {
+    const handleImgPreview = (item: FileItem) => {
       console.log("preview", item.url);
     };
     return {
@@ -103,5 +109,5 @@ npm i draggable_upload
       handleRemoveImg,
       handleImgPreview,
     };
-  },
+  }
 ```
