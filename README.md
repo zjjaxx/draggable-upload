@@ -18,7 +18,7 @@ npm i draggable_upload
 |   input原生属性 multiple 、accept 等 |   - | - |  否  | - |除了props其它自定义属性直接作用于input元素上 |
 |   uploadClass  |   string  |  -   | 否 | - | 上传input 类名 |
 |   imgClass  | string    |  -   | 否 | - | 图片类名 |
-
+|   draggable  | boolean    |  false   | 否 | - | 拖拽上传 |
 
 ## 事件
 
