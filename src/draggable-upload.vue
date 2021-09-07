@@ -119,7 +119,6 @@ export default {
     const handleDrop = (event) => {
       let files = Array.from(event.dataTransfer.files);
       const accept = attrs.accept;
-      console.log("accept", accept);
       if (accept) {
         files = files.filter((file) => {
           let { type, name } = file;
