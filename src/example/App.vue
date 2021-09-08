@@ -28,12 +28,22 @@
   </div>
 </template>
 
-<script>
-import draggableUpload from "../draggable-upload.vue";
-import { reactive } from "vue";
+<script lang="ts">
+import draggableUpload from "../index";
+import { reactive, defineComponent } from "vue";
+interface FileItem {
+  status: "loading" | "success" | "error";
+  url: string;
+  [propName: string]: unknown;
+}
+interface File {
+  name: string;
+  type: string;
+  [propName: string]: unknown;
+}
 const mockUrl =
   "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcar0.autoimg.cn%2Fupload%2F2013%2F2%2F18%2Fu_20130218165304639264.jpg&refer=http%3A%2F%2Fcar0.autoimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633182777&t=c1a8a9db9b2e22afc51046858b781fce";
-export default {
+export default defineComponent({
   name: "App",
   components: {
     draggableUpload,
@@ -45,7 +55,7 @@ export default {
         url: mockUrl,
       },
     ]);
-    const handleFileChange = (file, fileList) => {
+    const handleFileChange = (file: File, fileList: FileItem[]) => {
       console.log("file fileList is", file, fileList);
       let index = fileList.length;
       fileList.push({
@@ -62,10 +72,14 @@ export default {
         }
       }, 1000);
     };
-    const handleRemoveImg = (index, item, fileList) => {
+    const handleRemoveImg = (
+      index: number,
+      item: FileItem,
+      fileList: FileItem[]
+    ) => {
       fileList.splice(index, 1);
     };
-    const handleImgPreview = (item) => {
+    const handleImgPreview = (item: FileItem) => {
       console.log("preview", item.url);
     };
     return {
@@ -75,7 +89,7 @@ export default {
       handleImgPreview,
     };
   },
-};
+});
 </script>
 
 <style lang="less">
@@ -103,17 +117,5 @@ export default {
 }
 .mr-20 {
   margin-right: 20px;
-}
-.img-class {
-  width: 80px;
-  height: 80px;
-}
-.wrapper {
-  .draggable-upload-wrapper {
-    .upload-class {
-      width: 120px;
-      height: 120px;
-    }
-  }
 }
 </style>

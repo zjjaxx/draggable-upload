@@ -64,7 +64,9 @@ describe("draggableUpload.vue", () => {
     expect(wrapper.vm.isDragEnter).toEqual(false);
 
     const inputElement = wrapper.find(".input").wrapperElement;
-    const fn = jest.fn(() => {});
+    const fn = jest.fn(() => {
+      console.log("trigger");
+    });
     inputElement.onclick = fn;
     wrapper.vm.handleClick();
     expect(fn.mock.calls.length).toBe(1);
