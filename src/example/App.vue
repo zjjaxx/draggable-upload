@@ -29,9 +29,18 @@
 </template>
 
 <script lang="ts">
-import draggableUpload, { FileItem, File } from "../index";
+import draggableUpload from "../index";
 import { reactive, defineComponent } from "vue";
-
+interface FileItem {
+  status: "loading" | "success" | "error";
+  url: string;
+  [propName: string]: unknown;
+}
+interface File {
+  name: string;
+  type: string;
+  [propName: string]: unknown;
+}
 const mockUrl =
   "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcar0.autoimg.cn%2Fupload%2F2013%2F2%2F18%2Fu_20130218165304639264.jpg&refer=http%3A%2F%2Fcar0.autoimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633182777&t=c1a8a9db9b2e22afc51046858b781fce";
 export default defineComponent({

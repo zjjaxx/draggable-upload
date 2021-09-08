@@ -67,7 +67,17 @@ npm i draggable_upload
     </draggableUpload>
 ```
 ```
-import draggableUpload, { FileItem, File } from "../index";
+import draggableUpload from "draggable_upload";
+interface FileItem {
+  status: "loading" | "success" | "error";
+  url: string;
+  [propName: string]: unknown;
+}
+interface File {
+  name: string;
+  type: string;
+  [propName: string]: unknown;
+}
 //....
   setup() {
     const fileList = reactive([
