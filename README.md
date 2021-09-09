@@ -5,10 +5,16 @@
 基于vue3.0的可拖拽排序、拖拽上传的上传组件
 
 ## 安装
+通过 npm 或者 yarn 安装
 ```
 yarn add draggable_upload
 //or
 npm i draggable_upload
+```
+浏览器直接引入
+```
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="path/draggableUpload.umd.min.js"></script>
 ```
 ## 属性
 |  属性名  |  类型   |  默认值   | 必填 | 格式| 说明|
