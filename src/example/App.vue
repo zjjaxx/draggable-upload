@@ -1,19 +1,14 @@
 <template>
   <div class="wrapper">
+    <h2>基本使用</h2>
     <draggableUpload
-      uploadClass="upload-class"
-      imgClass="img-class"
-      :limit="4"
-      draggable
-      multiple="multiple"
-      accept="image/jpg,.png"
       :fileList="fileList"
       @fileChange="handleFileChange"
       @removeImg="handleRemoveImg"
       @imgPreview="handleImgPreview"
     >
       <i class="iconfont add-icon icon-jiahao"></i>
-      <template v-slot:progress="{ item }">
+      <!-- <template v-slot:progress="{ item }">
         <span class="status">{{ item.status }}</span>
       </template>
       <template v-slot:previewIcon="{ item }">
@@ -23,7 +18,50 @@
         <span class="text" @click="handleRemoveImg(index, item, fileList)"
           >删除</span
         >
-      </template>
+      </template> -->
+    </draggableUpload>
+    <h2>批量上传</h2>
+    <draggableUpload
+      multiple="multiple"
+      :fileList="fileList"
+      @fileChange="handleFileChange"
+      @removeImg="handleRemoveImg"
+      @imgPreview="handleImgPreview"
+    >
+      <i class="iconfont add-icon icon-jiahao"></i>
+    </draggableUpload>
+    <h2>上传图片数量限制</h2>
+    <draggableUpload
+      :limit="4"
+      multiple="multiple"
+      :fileList="fileList"
+      @fileChange="handleFileChange"
+      @removeImg="handleRemoveImg"
+      @imgPreview="handleImgPreview"
+    >
+      <i class="iconfont add-icon icon-jiahao"></i>
+    </draggableUpload>
+    <h2>上传文件类型校验</h2>
+    <draggableUpload
+      :limit="4"
+      accept="image/jpg,.png"
+      :fileList="fileList"
+      @fileChange="handleFileChange"
+      @removeImg="handleRemoveImg"
+      @imgPreview="handleImgPreview"
+    >
+      <i class="iconfont add-icon icon-jiahao"></i>
+    </draggableUpload>
+    <h2>拖拽上传</h2>
+    <draggableUpload
+      :limit="4"
+      draggable
+      accept="image/jpg,.png"
+      :fileList="fileList"
+      @fileChange="handleFileChange"
+      @removeImg="handleRemoveImg"
+      @imgPreview="handleImgPreview"
+    >
     </draggableUpload>
   </div>
 </template>
@@ -98,6 +136,7 @@ export default defineComponent({
   background: #fcfcfc;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

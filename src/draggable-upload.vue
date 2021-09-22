@@ -1,34 +1,44 @@
 <template>
   <div class="draggable-upload-wrapper">
+    <!-- tag="transition-group"
+      :animation="200" 
+      拖拽动画,animation时长需配置，不然无动画效果 -->
     <draggable
       :list="fileList"
-      tag="transition-group"
       item-key="url"
+      tag="transition-group"
       :animation="200"
     >
       <template #item="{ element: item, index }">
         <div class="img-wrapper">
+          <!-- 正在上传插槽 -->
           <template v-if="item.status == 'loading'">
             <slot name="progress" :item="item">
-              <span class="loading-text">loading</span>
+              <div class="loading-wrapper">
+                <span class="iconfont icon-loading loading-text"></span>
+              </div>
             </slot>
           </template>
           <img class="img" v-else :src="item.url" alt="" :class="imgClass" />
+          <!-- 上传成功插槽 -->
           <slot name="successIcon" :item="item" v-if="item.status == 'success'">
             <div class="success-icon-wrapper">
               <i class="iconfont icon-success success-icon"></i>
             </div>
           </slot>
+          <!-- 上传失败插槽 -->
           <slot name="errorIcon" :item="item" v-if="item.status == 'error'">
             <i class="iconfont icon-error error-icon"></i>
           </slot>
           <div class="option-wrapper">
+            <!-- 预览插槽 -->
             <slot name="previewIcon" :item="item">
               <i
                 class="iconfont icon-yulan icon preview-icon"
                 @click="$emit('imgPreview', item)"
               ></i>
             </slot>
+            <!-- 删除插槽 -->
             <slot
               name="deleteIcon"
               :item="item"
@@ -63,7 +73,6 @@
         :class="{ 'drag-enter-active': isDragEnter }"
         v-else
         @click="handleClick"
-        @dragenter.prevent
         @drop.prevent="handleDrop"
         @dragover.prevent="handleDragover"
         @dragleave.prevent="handleDragleave"
@@ -90,37 +99,47 @@ export default defineComponent({
     draggable,
   },
   props: {
+    //上传input 类名
     uploadClass: {
       type: String,
       default: "",
     },
+    //图片类名
     imgClass: {
       type: String,
       default: "",
     },
+    //是否可拖拽
     draggable: {
       type: Boolean,
       default: false,
     },
+    //文件列表
     fileList: {
       type: Array as PropType<FileItem[]>,
       required: true,
     },
+    // 文件数量限制
     limit: {
       type: Number,
       default: 1000,
     },
   },
   setup(props, { emit, attrs }) {
+    //文件是否被拖拽至指定区域
     const isDragEnter = ref(false);
     const inputRef = ref(null);
+    //处理Dragover事件
     const handleDragover = () => {
       isDragEnter.value = true;
     };
+    //处理Dragover事件
     const handleDrop = (event: { dataTransfer: { files: File[] } }) => {
       let files: File[] = Array.from(event.dataTransfer.files);
+      // 处理原生配置的accept属性
       const accept = attrs.accept as Nullable<string>;
       if (accept) {
+        // 基于原生配置的accept属性对拖拽的files文件进行过滤
         files = files.filter((file) => {
           let { type, name } = file;
           const extension =
@@ -131,13 +150,16 @@ export default defineComponent({
             .map((type) => type.trim())
             .filter((type) => type)
             .some((acceptedType) => {
+              // 对于accept多种格式的匹配
+              // 对于.png格式的校验
               if (acceptedType.startsWith(".")) {
                 return extension === acceptedType;
               }
-              //  /*的判断
+              // image/* 格式的校验
               if (/\/\*$/.test(acceptedType)) {
                 return baseType === acceptedType.replace(/\/\*$/, "");
               }
+              // image/jpg 格式的校验
               if (/^[^\/]+\/[^\/]+$/.test(acceptedType)) {
                 //jpg jpeg是同一种类型 做下兼容
                 acceptedType = acceptedType.replace("jpg", "jpeg");
@@ -156,13 +178,16 @@ export default defineComponent({
       isDragEnter.value = false;
       handleChange({ target: { files } });
     };
+    //处理Dragleave事件
     const handleDragleave = () => {
       isDragEnter.value = false;
     };
+    // 处理拖拽上传组件点击事件,因为指定拖拽区域的div层级要比input高，所以需要js模拟触发input的change事件
     const handleClick = () => {
       (inputRef.value as unknown as HTMLElement).click();
     };
     const { fileList, limit } = toRefs(props);
+    // 处理input change 事件
     const handleChange = ({
       target: { files },
     }: {
@@ -170,11 +195,13 @@ export default defineComponent({
     }) => {
       const fileListLength = fileList.value.length;
       files.forEach((file: File, index: number) => {
+        //如果超出limit-已上传文件数量 则不触发fileChange
         if (index < limit.value - fileListLength) {
           emit("fileChange", file, fileList.value);
         }
       });
     };
+    // 处理移除事件
     const handleRemove = (index: number, item: FileItem) => {
       emit("removeImg", index, item, fileList.value);
     };
@@ -275,13 +302,25 @@ export default defineComponent({
     img[src=""] {
       display: none;
     }
+    .loading-wrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .loading-text {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      font-size: 16px;
+      font-size: 32px;
       color: #999;
-      transform: translate(-50%, -50%);
+      animation: loading 1s linear infinite;
+    }
+    @keyframes loading {
+      0% {
+        transform: rotate(0);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
     .option-wrapper {
       display: flex;
