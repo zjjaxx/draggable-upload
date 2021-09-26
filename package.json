@@ -1,6 +1,6 @@
 {
     "name": "draggable_upload",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "scripts": {
         "serve": "vue-cli-service serve ./src/example/main.ts",
         "build": "vue-cli-service build --name draggableUpload --entry ./src/index.ts --target lib",

@@ -59,17 +59,6 @@ npm i draggable_upload
       @imgPreview="handleImgPreview"
     >
       <i class="iconfont add-icon icon-jiahao"></i>
-      <template v-slot:progress="{ item }">
-        <span class="status">{{ item.status }}</span>
-      </template>
-      <template v-slot:previewIcon="{ item }">
-        <span class="text mr-20" @click="handleImgPreview(item)">预览</span>
-      </template>
-      <template v-slot:deleteIcon="{ index, item, fileList }">
-        <span class="text" @click="handleRemoveImg(index, item, fileList)"
-          >删除</span
-        >
-      </template>
     </draggableUpload>
 ```
 ```
