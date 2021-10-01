@@ -12,6 +12,13 @@ yarn add draggable_upload
 npm i draggable_upload
 ```
 浏览器直接引入
+打包生成draggableUpload.umd.min.js
+```
+git clone https://github.com/zjjaxx/draggable-upload.git
+cd draggable-upload
+yarn 
+yarn run build
+```
 ```
     <script src="https://unpkg.com/vue@next"></script>
     <script src="path/draggableUpload.umd.min.js"></script>
