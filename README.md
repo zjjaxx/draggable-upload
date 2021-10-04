@@ -1,5 +1,6 @@
 # draggable_upload ![example workflow](https://github.com/zjjaxx/draggable-upload/actions/workflows/webpack.yml/badge.svg)
 
+![pictrue](https://github.com/zjjaxx/draggable-upload/blob/master/src/example/assets/upload.gif)
 ## 描述
 
 基于vue3.0的可拖拽排序、拖拽上传的上传组件
